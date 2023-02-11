@@ -5,10 +5,10 @@
 #include <string>
 #define ALPHABET_SIZE 26
 
-struct TrieNode         // Структура узла дерева 
+struct TrieNode         // РЎС‚СЂСѓРєС‚СѓСЂР° СѓР·Р»Р° РґРµСЂРµРІР° 
 {
     TrieNode* children[ALPHABET_SIZE];
-    // isEndOfWord - true, если ключ является концом слова
+    // isEndOfWord - true, РµСЃР»Рё РєР»СЋС‡ СЏРІР»СЏРµС‚СЃСЏ РєРѕРЅС†РѕРј СЃР»РѕРІР°
     bool isEndOfWord;
 };
 
