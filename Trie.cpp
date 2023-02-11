@@ -1,33 +1,33 @@
 #include <iostream>
 #include "Trie.h"
 
-// Возвращет новый узел с пустыми детьми
+// Р’РѕР·РІСЂР°С‰РµС‚ РЅРѕРІС‹Р№ СѓР·РµР» СЃ РїСѓСЃС‚С‹РјРё РґРµС‚СЊРјРё
 TrieNode* getNewNode() {
-    TrieNode* pNode = new TrieNode;             // выделяем память по новый узел
-    pNode->isEndOfWord = false;                 // устанавливаем флаг конца слова в false  
-    for (size_t i = 0; i < ALPHABET_SIZE; i++)  // инициализируем детей нулевым уазателем
+    TrieNode* pNode = new TrieNode;             // РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕ РЅРѕРІС‹Р№ СѓР·РµР»
+    pNode->isEndOfWord = false;                 // СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј С„Р»Р°Рі РєРѕРЅС†Р° СЃР»РѕРІР° РІ false  
+    for (size_t i = 0; i < ALPHABET_SIZE; i++)  // РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РґРµС‚РµР№ РЅСѓР»РµРІС‹Рј СѓР°Р·Р°С‚РµР»РµРј
         pNode->children[i] = nullptr;
     return pNode;
 }
 
-// Вставляет ключ в дерево, если его нет, 
-// иначе если ключ явлется префксом узла дерева 
-// помечает вкачестве литового т.е. конец слова
+// Р’СЃС‚Р°РІР»СЏРµС‚ РєР»СЋС‡ РІ РґРµСЂРµРІРѕ, РµСЃР»Рё РµРіРѕ РЅРµС‚, 
+// РёРЅР°С‡Рµ РµСЃР»Рё РєР»СЋС‡ СЏРІР»РµС‚СЃСЏ РїСЂРµС„РєСЃРѕРј СѓР·Р»Р° РґРµСЂРµРІР° 
+// РїРѕРјРµС‡Р°РµС‚ РІРєР°С‡РµСЃС‚РІРµ Р»РёС‚РѕРІРѕРіРѕ С‚.Рµ. РєРѕРЅРµС† СЃР»РѕРІР°
 void insert(TrieNode* root, std::string key) {
     TrieNode* node = root;
     for (size_t i = 0; i < key.length(); i++) {
-        int index = key[i] - 'a';   // вычисляем индекс в алфавите через смещение отнситьельно первой буквы
+        int index = key[i] - 'a';   // РІС‹С‡РёСЃР»СЏРµРј РёРЅРґРµРєСЃ РІ Р°Р»С„Р°РІРёС‚Рµ С‡РµСЂРµР· СЃРјРµС‰РµРЅРёРµ РѕС‚РЅСЃРёС‚СЊРµР»СЊРЅРѕ РїРµСЂРІРѕР№ Р±СѓРєРІС‹
 
-        // если указатель пустрой, т.е. детей с таким префиксом нет создаем новый узел
+        // РµСЃР»Рё СѓРєР°Р·Р°С‚РµР»СЊ РїСѓСЃС‚СЂРѕР№, С‚.Рµ. РґРµС‚РµР№ СЃ С‚Р°РєРёРј РїСЂРµС„РёРєСЃРѕРј РЅРµС‚ СЃРѕР·РґР°РµРј РЅРѕРІС‹Р№ СѓР·РµР»
         if (!node->children[index])
             node->children[index] = getNewNode();
 
         node = node->children[index];
     }
-    node->isEndOfWord = true;       // помечаем последний узлел как лист, т.е. конец слова
+    node->isEndOfWord = true;       // РїРѕРјРµС‡Р°РµРј РїРѕСЃР»РµРґРЅРёР№ СѓР·Р»РµР» РєР°Рє Р»РёСЃС‚, С‚.Рµ. РєРѕРЅРµС† СЃР»РѕРІР°
 }
 
-// Возврашает true если ключ есть в дереве, иначе false 
+// Р’РѕР·РІСЂР°С€Р°РµС‚ true РµСЃР»Рё РєР»СЋС‡ РµСЃС‚СЊ РІ РґРµСЂРµРІРµ, РёРЅР°С‡Рµ false 
 bool  search(TrieNode* root, std::string key) {
     TrieNode* node = root;
     for (size_t i = 0; i < key.length(); i++)
@@ -40,7 +40,7 @@ bool  search(TrieNode* root, std::string key) {
     return (node != nullptr && node->isEndOfWord);
 }
 
-// Возвращает true если root имеет лист, иначе false
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ true РµСЃР»Рё root РёРјРµРµС‚ Р»РёСЃС‚, РёРЅР°С‡Рµ false
 bool isEmpty(TrieNode* root) {
     for (size_t i = 0; i < ALPHABET_SIZE; i++)
         if (root->children[i])
@@ -48,14 +48,14 @@ bool isEmpty(TrieNode* root) {
     return true;
 }
 
-// Рекурсивная функция удаления ключа из дерева 
+// Р РµРєСѓСЂСЃРёРІРЅР°СЏ С„СѓРЅРєС†РёСЏ СѓРґР°Р»РµРЅРёСЏ РєР»СЋС‡Р° РёР· РґРµСЂРµРІР° 
 TrieNode* remove(TrieNode* root, std::string key, int depth) {
-    if (!root)                              // Если дерево пустое 
+    if (!root)                              // Р•СЃР»Рё РґРµСЂРµРІРѕ РїСѓСЃС‚РѕРµ 
         return nullptr;
-    if (depth == key.size()) {              // Если дошли до конца ключа 
-        if (root->isEndOfWord)              // Этот узел больше не конец слова 
+    if (depth == key.size()) {              // Р•СЃР»Рё РґРѕС€Р»Рё РґРѕ РєРѕРЅС†Р° РєР»СЋС‡Р° 
+        if (root->isEndOfWord)              // Р­С‚РѕС‚ СѓР·РµР» Р±РѕР»СЊС€Рµ РЅРµ РєРѕРЅРµС† СЃР»РѕРІР° 
             root->isEndOfWord = false;
-        if (isEmpty(root)) {                // Если ключ не евляется префиксом, удаляем его
+        if (isEmpty(root)) {                // Р•СЃР»Рё РєР»СЋС‡ РЅРµ РµРІР»СЏРµС‚СЃСЏ РїСЂРµС„РёРєСЃРѕРј, СѓРґР°Р»СЏРµРј РµРіРѕ
             delete (root);
             root = nullptr;
         }
@@ -70,7 +70,7 @@ TrieNode* remove(TrieNode* root, std::string key, int depth) {
     return root;
 }
 
-// вывод окончания слов по ключу
+// РІС‹РІРѕРґ РѕРєРѕРЅС‡Р°РЅРёСЏ СЃР»РѕРІ РїРѕ РєР»СЋС‡Сѓ
 void findEnd(TrieNode* root, char buf[], int ind, std::string& res, std::string key) {
     TrieNode* node = root;
     ind++;
@@ -109,10 +109,10 @@ void findEnd(TrieNode* root, char buf[], int ind, std::string& res, std::string 
     }
 }
 
-//вывод слов из словаря по ключу
+//РІС‹РІРѕРґ СЃР»РѕРІ РёР· СЃР»РѕРІР°СЂСЏ РїРѕ РєР»СЋС‡Сѓ
 void find_words(TrieNode* root, std::string key) {
     if (key == "") {
-        std::cout << "Вы не ввели ключ для поиска!\n" << std::endl;
+        std::cout << "Р’С‹ РЅРµ РІРІРµР»Рё РєР»СЋС‡ РґР»СЏ РїРѕРёСЃРєР°!\n" << std::endl;
         return;
     }
     TrieNode* node = root;
@@ -120,7 +120,7 @@ void find_words(TrieNode* root, std::string key) {
     for (size_t i = 0; i < key.length(); i++) {
         int index = key[i] - 'a';
         if (node->children[index] == nullptr) {
-            std::cout << "В словаре нет слова с ключом " << key << " !" << std::endl;
+            std::cout << "Р’ СЃР»РѕРІР°СЂРµ РЅРµС‚ СЃР»РѕРІР° СЃ РєР»СЋС‡РѕРј " << key << " !" << std::endl;
             break;
         }
         if (node->children[index]) {
@@ -142,36 +142,36 @@ void Menu(TrieNode* root) {
     while (t) {
         std::string key;
         int e = 0;
-        std::cout << "-----Введите желаемую операцию:----- \n1 - поиск слова\n2 - добавить слово в словарь\n3 - удалить слово из словаря\n0 - выход\n";
+        std::cout << "-----Р’РІРµРґРёС‚Рµ Р¶РµР»Р°РµРјСѓСЋ РѕРїРµСЂР°С†РёСЋ:----- \n1 - РїРѕРёСЃРє СЃР»РѕРІР°\n2 - РґРѕР±Р°РІРёС‚СЊ СЃР»РѕРІРѕ РІ СЃР»РѕРІР°СЂСЊ\n3 - СѓРґР°Р»РёС‚СЊ СЃР»РѕРІРѕ РёР· СЃР»РѕРІР°СЂСЏ\n0 - РІС‹С…РѕРґ\n";
         int command = 0;
         std::cin >> command;
 
         std::string d;
         switch (command) {
-        case 1:									//поиск слова в словаре по ключу
-            std::cout << "Введите часть слова: ";
+        case 1:									//РїРѕРёСЃРє СЃР»РѕРІР° РІ СЃР»РѕРІР°СЂРµ РїРѕ РєР»СЋС‡Сѓ
+            std::cout << "Р’РІРµРґРёС‚Рµ С‡Р°СЃС‚СЊ СЃР»РѕРІР°: ";
             getline(std::cin, d, '\n');
             getline(std::cin, key, '\n');
             find_words(root, key);
             break;
-        case 2:									//Добавление слова в словарь
-            std::cout << "Введите слово: ";
+        case 2:									//Р”РѕР±Р°РІР»РµРЅРёРµ СЃР»РѕРІР° РІ СЃР»РѕРІР°СЂСЊ
+            std::cout << "Р’РІРµРґРёС‚Рµ СЃР»РѕРІРѕ: ";
             getline(std::cin, d, '\n');
             getline(std::cin, d, '\n');
             if (!search(root, d))
             insert(root, d);
             else
-                std::cout << "Cлово " << d << " есть в словаре!" << std::endl;
+                std::cout << "CР»РѕРІРѕ " << d << " РµСЃС‚СЊ РІ СЃР»РѕРІР°СЂРµ!" << std::endl;
             std::cout << std::endl;
             break;
-        case 3:                                 //удаление слова из словаря
-            std::cout << "Введите слово: ";
+        case 3:                                 //СѓРґР°Р»РµРЅРёРµ СЃР»РѕРІР° РёР· СЃР»РѕРІР°СЂСЏ
+            std::cout << "Р’РІРµРґРёС‚Рµ СЃР»РѕРІРѕ: ";
             getline(std::cin, d, '\n');
             getline(std::cin, d, '\n');
             if (search(root, d))
                 remove(root, d);
             else
-                std::cout << "Cлово " << d << " нет в словаре!" << std::endl;
+                std::cout << "CР»РѕРІРѕ " << d << " РЅРµС‚ РІ СЃР»РѕРІР°СЂРµ!" << std::endl;
             std::cout << std::endl;
             break;
         case 0:
@@ -179,9 +179,9 @@ void Menu(TrieNode* root) {
             break;
 
         default:
-            std::cout << "Неверный ВВОД!!!" << std::endl;
+            std::cout << "РќРµРІРµСЂРЅС‹Р№ Р’Р’РћР”!!!" << std::endl;
             break;
         }
     }
-    std::cout << "\n------------До свидания!------------" << std::endl;
+    std::cout << "\n------------Р”Рѕ СЃРІРёРґР°РЅРёСЏ!------------" << std::endl;
 }
